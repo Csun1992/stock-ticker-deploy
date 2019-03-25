@@ -1,4 +1,5 @@
 import requests
+import os
 import pandas
 import simplejson as json
 from bokeh.plotting import figure
@@ -50,4 +51,5 @@ def graph():
         return render_template('graph.html', script=script, div=div)
 
 if __name__ == '__main__':
-    app.run(port=33507)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
