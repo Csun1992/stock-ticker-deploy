@@ -22,22 +22,19 @@ def index():
     
 @app.route('/graph', methods=['POST'])
 def graph():
-#if request.method == 'POST':
     app.vars['ticker'] = request.form['ticker']
     
     api_url = 'https://www.quandl.com/api/v1/datasets/WIKI/%s.json?api_key=gVz7XbzeecyxHdkCn8yB' % app.vars['ticker']
     session = requests.Session()
     session.mount('http://', requests.adapters.HTTPAdapter(max_retries=3))
-    raw_data = session.get(api_url)
+    rawData = session.get(api_url)
 
-    a = raw_data.json()
-    df = pandas.DataFrame(a['data'], columns=a['column_names'])
+    rawDataJason = rawData.json()
+    df = pandas.DataFrame(rawDataJason['data'], columns=rawDataJason['column_names'])
 
     df['Date'] = pandas.to_datetime(df['Date'])
 
-    p = figure(title='Stock prices for %s' % app.vars['ticker'],
-        x_axis_label='date',
-        x_axis_type='datetime')
+    p = figure(title='Stock prices for %s' % app.vars['ticker'], x_axis_label='date', x_axis_type='datetime')
     
     if request.form.get('Close'):
         p.line(x=df['Date'].values, y=df['Close'].values,line_width=2, legend='Close')
@@ -51,6 +48,4 @@ def graph():
     return render_template('graph.html', script=script, div=div)
 
 if __name__ == '__main__':
-#    port = int(os.environ.get("PORT", 5000))
-#    app.run(host='0.0.0.0', port=port)
     app.run(port=34195)

@@ -1,4 +1,4 @@
-Small practice project: Stock ticker made with flask and hosted on heroku using data from quandl
+In this project, we create a web app for checking the stock prices for different companies
+based on their tickers.
 
-Produced as part of the Data Incubator course.
-
+The tools we used for creating the website are Heroku, Flask and Bokeh
