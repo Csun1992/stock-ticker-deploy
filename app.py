@@ -2,7 +2,7 @@ import requests
 import os
 import pandas
 import simplejson as json
-from bokeh.plotting import figure
+from bokeh.plotting import figure, show
 from bokeh.palettes import Spectral11
 from bokeh.embed import components 
 from flask import Flask,render_template,request,redirect,session
@@ -22,7 +22,7 @@ def index():
     
 @app.route('/graph', methods=['POST'])
 def graph():
-#    if request.method == 'POST':
+#if request.method == 'POST':
     app.vars['ticker'] = request.form['ticker']
     
     api_url = 'https://www.quandl.com/api/v1/datasets/WIKI/%s.json?api_key=gVz7XbzeecyxHdkCn8yB' % app.vars['ticker']
@@ -53,4 +53,4 @@ def graph():
 if __name__ == '__main__':
 #    port = int(os.environ.get("PORT", 5000))
 #    app.run(host='0.0.0.0', port=port)
-    app.run(port=5000)
+    app.run(port=34195)
